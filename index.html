@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<!-- CUADRAO VERSION: v2.1.2 | BUILD: 2026.06.14.006 | STATUS: Comercio inteligente, logo, balance restante y conversiones -->
+<!-- CUADRAO VERSION: v2.1.3 | BUILD: 2026.06.14.007 | STATUS: Corrección logo establecimiento y gestión segura de comercios -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuadrao v2.1.2</title>
+<title>Cuadrao v2.1.3</title>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
-const APP_VERSION = "2.1.2";
-const APP_BUILD = "2026.06.14.006";
-const APP_STATUS = "Comercio inteligente, logo, balance restante y conversiones";
+const APP_VERSION = "2.1.3";
+const APP_BUILD = "2026.06.14.007";
+const APP_STATUS = "Corrección logo establecimiento y gestión segura de comercios";
 console.log(`Cuadrao v${APP_VERSION} | Build ${APP_BUILD} | ${APP_STATUS}`);
 
 
@@ -484,7 +484,7 @@ function clearAudit(){
   const d=db(); d.audit=[]; saveDB(d);
 }
 function exportFullBackup(){
-  downloadTextFile('cuadrao_respaldo_v2.1.2_build_2026.06.14.006.json',JSON.stringify(db(),null,2),'application/json;charset=utf-8');
+  downloadTextFile('cuadrao_respaldo_v2.1.3_build_2026.06.14.007.json',JSON.stringify(db(),null,2),'application/json;charset=utf-8');
 }
 function importFullBackup(){
   const f=safeEl('backupFile')?.files?.[0];
@@ -1848,7 +1848,7 @@ body.dark .cuadrao-watermark{
 
       <button class="btn-primary full login-submit" onclick="login()">Acceder</button>
 
-      <div class="version-line single"><span>Cuadrao v2.1.2 Demo</span></div>
+      <div class="version-line single"><span>Cuadrao v2.1.3 Demo</span></div>
 
       
       <div class="restricted">
@@ -1863,8 +1863,8 @@ body.dark .cuadrao-watermark{
       <p class="login-footnote">Esta página está protegida por derechos de autor.</p>
 
       <div class="system-version">
-        Cuadrao v2.1.2<br>
-        Build 2026.06.14.006
+        Cuadrao v2.1.3<br>
+        Build 2026.06.14.007
       </div>
 
 
@@ -1896,7 +1896,7 @@ body.dark .cuadrao-watermark{
   <div class="nav simple-nav">
     <button class="btn-primary" onclick="showUserSection('userHome')">Inicio</button>
     <button class="btn-secondary" onclick="focusClientSearch()">Procesar balance</button>
-    <button class="btn-soft" onclick="showUserSection('userSupport')">Soporte</button>
+    <button class="btn-soft" onclick="showUserSection('userSupport')">Soporte</button><button class="btn-soft" onclick="debugLoadEstablishment()">Recargar logo</button>
     <button class="btn-soft" onclick="openCommerceAdminGate()">Admin comercio</button>
     <button class="btn-soft" onclick="toggleMoreMenu()">Más opciones</button>
     <button class="btn-soft" onclick="logout()">Salir</button>
@@ -2270,8 +2270,8 @@ body.dark .cuadrao-watermark{
     <div class="card system-info-card">
       <h2>Información del Sistema</h2>
       <div class="grid4">
-        <div class="metric">Versión<br><b>v2.1.2</b></div>
-        <div class="metric">Build<br><b>2026.06.14.006</b></div>
+        <div class="metric">Versión<br><b>v2.1.3</b></div>
+        <div class="metric">Build<br><b>2026.06.14.007</b></div>
         <div class="metric">Base de datos<br><b>Supabase</b></div>
         <div class="metric">Estado<br><b id="cloudStatus">Verificando</b></div>
       </div>
@@ -2419,7 +2419,7 @@ body.dark .cuadrao-watermark{
       <button class="btn-primary full" onclick="saveCommerceUser()">Guardar usuario de comercio</button>
     </div>
     <div class="card">
-      <h2>Usuarios de comercios</h2>
+      <h2>Usuarios de comercios</h2><p class="note">Gestión segura: desactiva comercios, establecimientos o usuarios sin borrar balances ni clientas.</p>
       <div class="actions"><button class="btn-soft" onclick="exportCommerceUsers()">Exportar usuarios</button><label class="btn-soft" for="importCommerceUsersFile" style="cursor:pointer">Importar usuarios</label><input id="importCommerceUsersFile" type="file" accept=".json" style="display:none" onchange="importCommerceUsers(event)"></div>
       <div id="commerceUsersList"></div>
     </div>
@@ -2856,46 +2856,92 @@ function previewCommerceLogo(event){
   reader.readAsDataURL(file);
 }
 
+
 async function cloudCreateEstablishmentForCommerce(comercioId,user){
   if(!cloudEnabled||!comercioId)return null;
   try{
-    const payload={comercio_id:comercioId,nombre:user.storeName,persona_contacto:user.contactPerson||user.storeName,correo:user.email||null,telefono_movil:user.mobile||null,logo_url:user.logoData||null,activo:true};
-    const {data:existing}=await cloudClient.from('establecimientos').select('id').eq('comercio_id',comercioId).maybeSingle();
-    if(existing?.id){
-      const {data,error}=await cloudClient.from('establecimientos').update(payload).eq('id',existing.id).select().single();
+    const payload={
+      comercio_id:comercioId,
+      nombre:user.storeName,
+      persona_contacto:user.contactPerson||user.storeName,
+      correo:user.email||null,
+      telefono_movil:user.mobile||null,
+      logo_url:user.logoData||null,
+      activo:true
+    };
+
+    const {data:existingList,error:findError}=await cloudClient
+      .from('establecimientos')
+      .select('id')
+      .eq('comercio_id',comercioId)
+      .order('creado',{ascending:true})
+      .limit(1);
+
+    if(findError){console.warn('No se pudo buscar establecimiento:',findError);}
+
+    if(existingList && existingList.length){
+      const {data,error}=await cloudClient.from('establecimientos').update(payload).eq('id',existingList[0].id).select().single();
       if(error){console.warn('No se actualizó establecimiento:',error);return null}
       return data;
     }
+
     const {data,error}=await cloudClient.from('establecimientos').insert(payload).select().single();
     if(error){console.warn('No se creó establecimiento:',error);return null}
     return data;
   }catch(e){console.warn('cloudCreateEstablishmentForCommerce error',e);return null}
 }
 
+
+
 async function cloudLoadEstablishment(comercioId){
   if(!cloudEnabled||!comercioId)return null;
   try{
-    const {data,error}=await cloudClient.from('establecimientos').select('*').eq('comercio_id',comercioId).maybeSingle();
+    const {data,error}=await cloudClient
+      .from('establecimientos')
+      .select('*')
+      .eq('comercio_id',comercioId)
+      .eq('activo',true)
+      .order('logo_url',{ascending:false})
+      .order('creado',{ascending:true})
+      .limit(1)
+      .maybeSingle();
     if(error){console.warn('No se cargó establecimiento:',error);return null}
     if(data){
       activeCommerceLogo=data.logo_url||'';
       activeCommerceContact=data.persona_contacto||'';
-      const d=db();d.activeEstablishment=data;saveDB(d);
+      if(data.nombre) activeCommerceName=data.nombre;
+      const d=db();
+      d.activeEstablishment=data;
+      saveDB(d);
+      setTimeout(renderCommerceBranding,50);
     }
     return data;
   }catch(e){console.warn(e);return null}
 }
 
+
+
 function renderCommerceBranding(){
-  const targets=document.querySelectorAll('[data-commerce-brand]');
-  const d=db(), est=d.activeEstablishment||{};
+  const d=db();
+  const est=d.activeEstablishment||{};
   const logo=activeCommerceLogo||est.logo_url||'';
-  targets.forEach(box=>{
-    box.innerHTML=logo
-      ? `<div class="commerce-brand"><img src="${logo}" alt="Logo"><div><b>${activeCommerceName||est.nombre||'Comercio'}</b><br><span class="small">${est.persona_contacto||activeCommerceContact||''}</span></div></div>`
-      : `<div><b>${activeCommerceName||'Comercio'}</b><br><span class="small">${est.persona_contacto||activeCommerceContact||''}</span></div>`;
-  });
+  const name=activeCommerceName||est.nombre||'Comercio';
+  const contact=est.persona_contacto||activeCommerceContact||'';
+  const htmlBrand=logo
+    ? `<div class="commerce-brand"><img src="${logo}" alt="Logo"><div><b>${name}</b><br><span class="small">${contact}</span></div></div>`
+    : `<div><b>${name}</b><br><span class="small">${contact}</span></div>`;
+
+  document.querySelectorAll('[data-commerce-brand]').forEach(box=>{box.innerHTML=htmlBrand;});
+
+  const banner=document.getElementById('commerceModeBanner');
+  if(banner && !banner.querySelector('[data-commerce-brand]')){
+    banner.innerHTML=`<div data-commerce-brand>${htmlBrand}</div><div><span class="note">${commerceAdminUnlocked?'Modo administrador del comercio':'Modo empleado'}</span></div>`;
+  }else if(banner){
+    const target=banner.querySelector('[data-commerce-brand]');
+    if(target) target.innerHTML=htmlBrand;
+  }
 }
+
 
 function getCustomConversionForItem(item){
   const d=db(); const name=String(item.label||item.producto||item.line||'').toLowerCase();
@@ -3118,6 +3164,14 @@ function safeCall(fnName){
   }catch(e){
     console.warn('Error en '+fnName,e);
   }
+}
+
+
+async function debugLoadEstablishment(){
+  if(!activeCommerceId){alert('No hay comercio activo.');return}
+  await cloudLoadEstablishment(activeCommerceId);
+  renderCommerceBranding();
+  alert('Establecimiento/logo recargado.');
 }
 
 function renderCloudStatus(){
@@ -3772,6 +3826,55 @@ function importCommerceUsers(event){
     }
   };
   reader.readAsText(f);
+}
+
+
+async function deactivateCommerceUser(id){
+  if(!confirm('¿Desactivar este usuario? No se eliminarán sus datos.'))return;
+  const d=db();
+  const u=(d.commerceUsers||[]).find(x=>x.id===id||x.cloudId===id);
+  if(u){u.active=false;saveDB(d);}
+  if(cloudEnabled){
+    const cloudId=u?.cloudId||id;
+    if(isUUID(cloudId)) await cloudClient.from('usuarios_comercio').update({activo:false}).eq('id',cloudId);
+  }
+  renderCommerceUsers();
+  alert('Usuario desactivado.');
+}
+async function deactivateCommerce(id){
+  if(!confirm('¿Desactivar este comercio y su establecimiento? No se eliminarán balances ni clientas.'))return;
+  const d=db();
+  const u=(d.commerceUsers||[]).find(x=>x.commerceId===id||x.id===id||x.cloudId===id);
+  const comercioId=u?.commerceId||id;
+  if(u){u.active=false;saveDB(d);}
+  if(cloudEnabled && isUUID(comercioId)){
+    await cloudClient.from('comercios').update({activo:false}).eq('id',comercioId);
+    await cloudClient.from('establecimientos').update({activo:false}).eq('comercio_id',comercioId);
+    await cloudClient.from('usuarios_comercio').update({activo:false}).eq('comercio_id',comercioId);
+  }
+  renderCommerceUsers();
+  alert('Comercio desactivado.');
+}
+async function deactivateEstablishment(comercioId){
+  if(!confirm('¿Desactivar el establecimiento de este comercio?'))return;
+  if(cloudEnabled && isUUID(comercioId)){
+    await cloudClient.from('establecimientos').update({activo:false}).eq('comercio_id',comercioId);
+  }
+  alert('Establecimiento desactivado.');
+}
+async function hardDeleteCommerceUser(id){
+  if(!confirm('ELIMINACIÓN PERMANENTE: ¿Seguro que deseas borrar este usuario?'))return;
+  if(!confirm('Confirma nuevamente. Esta acción no se recomienda.'))return;
+  const d=db();
+  const u=(d.commerceUsers||[]).find(x=>x.id===id||x.cloudId===id);
+  d.commerceUsers=(d.commerceUsers||[]).filter(x=>x.id!==id&&x.cloudId!==id);
+  saveDB(d);
+  if(cloudEnabled){
+    const cloudId=u?.cloudId||id;
+    if(isUUID(cloudId)) await cloudClient.from('usuarios_comercio').delete().eq('id',cloudId);
+  }
+  renderCommerceUsers();
+  alert('Usuario eliminado.');
 }
 
 function renderCommerceUsers(){
