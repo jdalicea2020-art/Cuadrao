@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<!-- CUADRAO VERSION: v2.1.4 | BUILD: 2026.06.14.008 | STATUS: Corrección visual establecimientos y logo comercio -->
+<!-- CUADRAO VERSION: v3.0.0 | BUILD: 2026.06.14.009 | STATUS: Rediseño visual SaaS profesional -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuadrao v2.1.4</title>
+<title>Cuadrao v3.0.0</title>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
-const APP_VERSION = "2.1.4";
-const APP_BUILD = "2026.06.14.008";
-const APP_STATUS = "Corrección visual establecimientos y logo comercio";
+const APP_VERSION = "3.0.0";
+const APP_BUILD = "2026.06.14.009";
+const APP_STATUS = "Rediseño visual SaaS profesional";
 console.log(`Cuadrao v${APP_VERSION} | Build ${APP_BUILD} | ${APP_STATUS}`);
 
 
@@ -484,7 +484,7 @@ function clearAudit(){
   const d=db(); d.audit=[]; saveDB(d);
 }
 function exportFullBackup(){
-  downloadTextFile('cuadrao_respaldo_v2.1.4_build_2026.06.14.008.json',JSON.stringify(db(),null,2),'application/json;charset=utf-8');
+  downloadTextFile('cuadrao_respaldo_v3.0.0_build_2026.06.14.009.json',JSON.stringify(db(),null,2),'application/json;charset=utf-8');
 }
 function importFullBackup(){
   const f=safeEl('backupFile')?.files?.[0];
@@ -1784,6 +1784,46 @@ body.dark .cuadrao-watermark{
   .screen,.active{display:block!important;padding:0}
 }
 
+
+/* ===== Cuadrao v3.0 SaaS Visual Refresh ===== */
+:root{
+  --c-primary:#2563eb;--c-green:#22c55e;--c-text:#0f172a;--c-muted:#64748b;--c-line:#e2e8f0;
+  --c-card:rgba(255,255,255,.88);--c-shadow:0 24px 60px rgba(15,23,42,.10);
+}
+body{background:radial-gradient(circle at 12% 6%,rgba(37,99,235,.18),transparent 28%),radial-gradient(circle at 88% 12%,rgba(34,197,94,.18),transparent 32%),linear-gradient(135deg,#eef5ff 0%,#f8fbff 46%,#ecfdf5 100%)!important;color:var(--c-text)!important}
+.card,.panel,.modal,.commerce-banner,.admin-section,section .card{border:1px solid rgba(226,232,240,.9)!important;background:var(--c-card)!important;box-shadow:var(--c-shadow)!important;backdrop-filter:blur(16px);border-radius:28px!important}
+button,.btn-primary,.btn-soft,.btn-secondary,.btn-danger{border-radius:16px!important;font-weight:900!important}
+.btn-primary,button.btn-primary,.primary,button[onclick*="login"],button[onclick*="saveClient"]{background:linear-gradient(135deg,#2563eb,#22c55e)!important;color:white!important;border:0!important;box-shadow:0 12px 28px rgba(37,99,235,.22)!important}
+.btn-soft,.btn-secondary{background:#f1f5f9!important;color:#0f172a!important;border:1px solid #e2e8f0!important}
+.btn-danger{background:#fee2e2!important;color:#991b1b!important;border:1px solid #fecaca!important}
+input,select,textarea{border-radius:16px!important;border:1px solid #dbe4ef!important;background:rgba(255,255,255,.92)!important;min-height:46px}
+#loginScreen{display:none;align-items:center;justify-content:center;padding:40px 18px!important}
+#loginScreen.active{display:flex!important}
+#loginScreen:before{content:"";position:fixed;inset:0;background:linear-gradient(135deg,rgba(37,99,235,.88) 0 8%,transparent 8%),radial-gradient(circle at 6% 95%,rgba(37,99,235,.28),transparent 20%),radial-gradient(circle at 94% 6%,rgba(16,185,129,.20),transparent 25%);pointer-events:none;z-index:0}
+#loginScreen .login-card,#loginScreen .card,#loginScreen>div{position:relative;z-index:1}
+.login-card,#loginScreen .card{max-width:560px!important;width:min(560px,96vw)!important;padding:42px!important;border-radius:32px!important;background:rgba(255,255,255,.94)!important;box-shadow:0 34px 90px rgba(15,23,42,.16)!important}
+#loginScreen h1,#loginScreen .app-title,#loginScreen .brand-title{font-size:52px!important;letter-spacing:-.07em!important;line-height:.95!important;color:#071326!important}
+#loginScreen h2{font-size:31px!important;letter-spacing:-.04em!important}
+#loginScreen .tagline,#loginScreen .subtitle{color:#64748b!important;font-size:17px!important;font-weight:800!important}
+#userScreen.active,#adminScreen.active{display:block!important;max-width:1180px;margin:0 auto;padding:28px 18px 60px}
+#userScreen header,#adminScreen header,.topbar,.app-header{background:rgba(255,255,255,.88)!important;border:1px solid rgba(226,232,240,.95)!important;box-shadow:0 20px 50px rgba(15,23,42,.08)!important;border-radius:28px!important;padding:14px 18px!important;margin-bottom:22px!important;backdrop-filter:blur(18px)}
+#userScreen nav,#adminScreen nav,.nav,.tabs{display:flex;gap:10px;flex-wrap:wrap}
+#userScreen nav button,#adminScreen nav button,.tab{background:#f1f5f9!important;border:1px solid #e2e8f0!important;color:#0f172a!important;padding:12px 16px!important;border-radius:15px!important}
+#userScreen nav button.active,#adminScreen nav button.active,.tab.active{background:linear-gradient(135deg,#2563eb,#22c55e)!important;color:white!important;box-shadow:0 12px 26px rgba(37,99,235,.20)!important}
+#commerceModeBanner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px!important}
+#licenseBanner .alert,.alert.ok{border-radius:22px!important;border:1px solid rgba(34,197,94,.65)!important;background:rgba(236,253,245,.88)!important}
+.grid,.grid2,.grid3,.grid4{gap:18px!important}
+.metric,.stat,.kpi{background:rgba(255,255,255,.86)!important;border:1px solid #e2e8f0!important;border-radius:22px!important;box-shadow:0 12px 30px rgba(15,23,42,.06);padding:18px!important}
+table{border-collapse:separate!important;border-spacing:0!important;overflow:hidden;border-radius:18px;border:1px solid #e2e8f0}
+th{background:#f1f5f9!important;color:#64748b!important;text-transform:uppercase;font-size:12px!important;letter-spacing:.05em}
+td,th{border-bottom:1px solid #e2e8f0!important;padding:13px 14px!important}
+tr:last-child td{border-bottom:0!important}
+.cuadrao-v3-chart-card{margin-top:18px;padding:18px;border-radius:24px;background:rgba(255,255,255,.86);border:1px solid #e2e8f0;box-shadow:0 18px 45px rgba(15,23,42,.07)}
+.cuadrao-v3-chart{height:170px;border-radius:20px;background:linear-gradient(180deg,rgba(34,197,94,.16),rgba(34,197,94,.02)),repeating-linear-gradient(to right,transparent 0 13%,rgba(148,163,184,.18) 13.2% 13.4%,transparent 13.5% 26%),repeating-linear-gradient(to top,transparent 0 24%,rgba(148,163,184,.18) 24.2% 24.5%,transparent 25% 49%);position:relative;overflow:hidden}
+.cuadrao-v3-chart:after{content:"Resumen visual de actividad";position:absolute;bottom:12px;left:18px;color:#64748b;font-weight:800;font-size:12px}
+@media(min-width:1100px){#userScreen.v3-shell main{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}#userScreen.v3-shell main:before{content:"Inicio\A Clientas\A Balances\A Recibos\A Productos\A Reportes\A Alertas\A Establecimiento";white-space:pre-line;display:block;padding:24px 18px;border-radius:28px;min-height:560px;background:linear-gradient(180deg,#071326,#0f2747);color:white;line-height:3.0;font-weight:800;box-shadow:0 24px 60px rgba(15,23,42,.18)}#userScreen.v3-shell main>*{grid-column:2}}
+@media(max-width:700px){.login-card,#loginScreen .card{padding:28px 20px!important}#loginScreen h1,#loginScreen .app-title,#loginScreen .brand-title{font-size:42px!important}#userScreen.active,#adminScreen.active{padding:14px 10px 40px}#userScreen header,#adminScreen header{border-radius:22px!important}}
+
 </style>
 </head>
 <body>
@@ -1857,7 +1897,7 @@ body.dark .cuadrao-watermark{
 
       <button class="btn-primary full login-submit" onclick="login()">Acceder</button>
 
-      <div class="version-line single"><span>Cuadrao v2.1.4 Demo</span></div>
+      <div class="version-line single"><span>Cuadrao v3.0.0 Demo</span></div>
 
       
       <div class="restricted">
@@ -1872,8 +1912,8 @@ body.dark .cuadrao-watermark{
       <p class="login-footnote">Esta página está protegida por derechos de autor.</p>
 
       <div class="system-version">
-        Cuadrao v2.1.4<br>
-        Build 2026.06.14.008
+        Cuadrao v3.0.0<br>
+        Build 2026.06.14.009
       </div>
 
 
@@ -2279,8 +2319,8 @@ body.dark .cuadrao-watermark{
     <div class="card system-info-card">
       <h2>Información del Sistema</h2>
       <div class="grid4">
-        <div class="metric">Versión<br><b>v2.1.4</b></div>
-        <div class="metric">Build<br><b>2026.06.14.008</b></div>
+        <div class="metric">Versión<br><b>v3.0.0</b></div>
+        <div class="metric">Build<br><b>2026.06.14.009</b></div>
         <div class="metric">Base de datos<br><b>Supabase</b></div>
         <div class="metric">Estado<br><b id="cloudStatus">Verificando</b></div>
       </div>
@@ -2743,6 +2783,7 @@ async function login(){
       document.getElementById('userScreen')?.classList.add('active');
       if(typeof setDefaultCalendar==='function') setDefaultCalendar();
       renderAll();
+      initV3VisualShell();
       if(typeof renderCommerceMode==='function') renderCommerceMode();
       cloudStartSession('comercio');
       return;
@@ -3191,7 +3232,7 @@ function renderCloudStatus(){
 }
 
 
-/* ---- v2.1.4 establecimiento/logo robust UI ---- */
+/* ---- v3.0.0 establecimiento/logo robust UI ---- */
 async function loadAndRenderActiveEstablishment(){
   if(!cloudEnabled || !activeCommerceId){
     renderCommerceBranding();
@@ -3327,8 +3368,27 @@ async function debugLoadEstablishment(){
   alert('Establecimiento/logo recargado.');
 }
 
+
+/* ---- Cuadrao v3.0 visual shell helpers ---- */
+function initV3VisualShell(){
+  const u=document.getElementById('userScreen');
+  const a=document.getElementById('adminScreen');
+  if(u)u.classList.add('v3-shell');
+  if(a)a.classList.add('v3-shell');
+  const target=document.querySelector('#userHome .card:first-child, #userDashboard .card:first-child, #userScreen main .card:first-child');
+  if(target && !document.getElementById('v3ActivityChart')){
+    const div=document.createElement('div');
+    div.id='v3ActivityChart';
+    div.className='cuadrao-v3-chart-card';
+    div.innerHTML='<h3>Actividad del comercio</h3><p class="note">Vista visual preparada para reportes y métricas futuras.</p><div class="cuadrao-v3-chart"></div>';
+    target.appendChild(div);
+  }
+  const ver=document.querySelector('#loginScreen .system-version');
+  if(ver)ver.innerHTML='Cuadrao v3.0.0<br>Build 2026.06.14.009';
+}
+
 function renderAll(){
-  const list=['renderClients','renderUserReports','renderTickets','renderAdmin','renderStores','renderFiles','renderVisitCalendar','renderCategoryFilters','populateAdminSelects','renderStorePrices','renderConversions','renderLicenses','renderAudit','renderSettings','renderSystemStatus','renderCommerceMode','renderCommerceAdminPanel','renderCommerceUsers','renderCloudStatus','renderLicenseBanner','renderAdminAlertCount','renderCustomConversions','renderCloudEstablishments','renderCommerceManagementFromCloud','renderCommerceBranding'];
+  const list=['renderClients','renderUserReports','renderTickets','renderAdmin','renderStores','renderFiles','renderVisitCalendar','renderCategoryFilters','populateAdminSelects','renderStorePrices','renderConversions','renderLicenses','renderAudit','renderSettings','renderSystemStatus','renderCommerceMode','renderCommerceAdminPanel','renderCommerceUsers','renderCloudStatus','renderLicenseBanner','renderAdminAlertCount','renderCustomConversions','renderCloudEstablishments','renderCommerceManagementFromCloud','renderCommerceBranding','initV3VisualShell'];
   list.forEach(fn=>safeCall(fn));
   try{ if(typeof renderCatalog==='function'){renderCatalog('admin');renderCatalog('user');} }catch(e){console.warn('Error en renderCatalog',e);}
 }
