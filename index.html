@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<!-- CUADRAO VERSION: v3.0.0 | BUILD: 2026.06.14.009 | STATUS: Rediseño visual SaaS profesional -->
+<!-- CUADRAO VERSION: v3.0.2 | BUILD: 2026.06.14.011 | STATUS: Creación unificada, borrado real y mejora visual notable -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuadrao v3.0.0</title>
+<title>Cuadrao v3.0.2</title>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
-const APP_VERSION = "3.0.0";
-const APP_BUILD = "2026.06.14.009";
-const APP_STATUS = "Rediseño visual SaaS profesional";
+const APP_VERSION = "3.0.2";
+const APP_BUILD = "2026.06.14.011";
+const APP_STATUS = "Creación unificada, borrado real y mejora visual notable";
 console.log(`Cuadrao v${APP_VERSION} | Build ${APP_BUILD} | ${APP_STATUS}`);
 
 
@@ -484,7 +484,7 @@ function clearAudit(){
   const d=db(); d.audit=[]; saveDB(d);
 }
 function exportFullBackup(){
-  downloadTextFile('cuadrao_respaldo_v3.0.0_build_2026.06.14.009.json',JSON.stringify(db(),null,2),'application/json;charset=utf-8');
+  downloadTextFile('cuadrao_respaldo_v3.0.2_build_2026.06.14.011.json',JSON.stringify(db(),null,2),'application/json;charset=utf-8');
 }
 function importFullBackup(){
   const f=safeEl('backupFile')?.files?.[0];
@@ -1824,6 +1824,209 @@ tr:last-child td{border-bottom:0!important}
 @media(min-width:1100px){#userScreen.v3-shell main{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}#userScreen.v3-shell main:before{content:"Inicio\A Clientas\A Balances\A Recibos\A Productos\A Reportes\A Alertas\A Establecimiento";white-space:pre-line;display:block;padding:24px 18px;border-radius:28px;min-height:560px;background:linear-gradient(180deg,#071326,#0f2747);color:white;line-height:3.0;font-weight:800;box-shadow:0 24px 60px rgba(15,23,42,.18)}#userScreen.v3-shell main>*{grid-column:2}}
 @media(max-width:700px){.login-card,#loginScreen .card{padding:28px 20px!important}#loginScreen h1,#loginScreen .app-title,#loginScreen .brand-title{font-size:42px!important}#userScreen.active,#adminScreen.active{padding:14px 10px 40px}#userScreen header,#adminScreen header{border-radius:22px!important}}
 
+
+/* ===== Cuadrao v3.0.2 Safe Visual Polish ===== */
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1e40af;
+  --success:#22c55e;
+  --success-dark:#16a34a;
+  --ink:#0f172a;
+  --muted:#64748b;
+  --line:#e2e8f0;
+  --surface:#ffffff;
+  --soft:#f8fafc;
+  --shadow:0 22px 55px rgba(15,23,42,.10);
+  --radius-xl:28px;
+  --radius-lg:20px;
+}
+body{
+  background:
+    radial-gradient(circle at 8% 0%, rgba(37,99,235,.20), transparent 28%),
+    radial-gradient(circle at 94% 8%, rgba(34,197,94,.18), transparent 30%),
+    linear-gradient(135deg,#eef5ff 0%,#f9fbff 48%,#ecfdf5 100%) !important;
+  color:var(--ink) !important;
+}
+.card,.panel,.modal,.commerce-banner,.admin-section,section .card{
+  background:rgba(255,255,255,.90) !important;
+  border:1px solid rgba(226,232,240,.95) !important;
+  border-radius:var(--radius-xl) !important;
+  box-shadow:var(--shadow) !important;
+  backdrop-filter:blur(14px);
+}
+header,.topbar,.app-header{
+  background:rgba(255,255,255,.92) !important;
+  border:1px solid rgba(226,232,240,.95) !important;
+  border-radius:var(--radius-xl) !important;
+  box-shadow:0 16px 38px rgba(15,23,42,.08) !important;
+}
+button,.btn-primary,.btn-soft,.btn-secondary,.btn-danger{
+  border-radius:16px !important;
+  font-weight:900 !important;
+  transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+button:hover,.btn-primary:hover,.btn-soft:hover,.btn-secondary:hover{
+  transform:translateY(-1px);
+}
+.btn-primary,.primary,button[onclick*="login"],button[onclick*="save"],button[onclick*="processBalance"]{
+  background:linear-gradient(135deg,var(--primary),var(--success)) !important;
+  color:#fff !important;
+  border:0 !important;
+  box-shadow:0 12px 28px rgba(37,99,235,.20) !important;
+}
+.btn-soft,.btn-secondary{
+  background:#f1f5f9 !important;
+  color:#0f172a !important;
+  border:1px solid #e2e8f0 !important;
+}
+.btn-danger{
+  background:#fee2e2 !important;
+  color:#991b1b !important;
+  border:1px solid #fecaca !important;
+}
+input,select,textarea{
+  border-radius:16px !important;
+  border:1px solid #dbe4ef !important;
+  background:rgba(255,255,255,.95) !important;
+  min-height:46px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+}
+input:focus,select:focus,textarea:focus{
+  outline:2px solid rgba(37,99,235,.18) !important;
+  border-color:#60a5fa !important;
+}
+nav button,.tab{
+  background:#f1f5f9 !important;
+  color:#0f172a !important;
+  border:1px solid #e2e8f0 !important;
+  border-radius:15px !important;
+}
+nav button.active,.tab.active{
+  background:linear-gradient(135deg,#2563eb,#22c55e) !important;
+  color:white !important;
+  box-shadow:0 10px 24px rgba(37,99,235,.18) !important;
+}
+.metric,.stat,.kpi{
+  background:rgba(255,255,255,.92) !important;
+  border:1px solid #e2e8f0 !important;
+  border-radius:22px !important;
+  box-shadow:0 12px 32px rgba(15,23,42,.06) !important;
+}
+.alert,.notice{
+  border-radius:20px !important;
+}
+.alert.ok,.status-done{
+  background:rgba(236,253,245,.95) !important;
+  color:#065f46 !important;
+  border-color:rgba(34,197,94,.45) !important;
+}
+.alert.warn,.status-open{
+  background:rgba(255,247,237,.95) !important;
+  color:#9a3412 !important;
+  border-color:rgba(251,146,60,.45) !important;
+}
+table{
+  border-collapse:separate !important;
+  border-spacing:0 !important;
+  border-radius:18px !important;
+  overflow:hidden !important;
+  border:1px solid #e2e8f0 !important;
+}
+th{
+  background:#f1f5f9 !important;
+  color:#64748b !important;
+  text-transform:uppercase;
+  font-size:12px !important;
+  letter-spacing:.05em;
+}
+td,th{
+  border-bottom:1px solid #e2e8f0 !important;
+  padding:13px 14px !important;
+}
+tr:last-child td{
+  border-bottom:0 !important;
+}
+#loginScreen{
+  background:
+    radial-gradient(circle at 15% 10%, rgba(37,99,235,.18), transparent 28%),
+    radial-gradient(circle at 85% 12%, rgba(34,197,94,.16), transparent 28%),
+    linear-gradient(135deg,#eef5ff,#ffffff,#ecfdf5) !important;
+}
+#loginScreen .card,
+#loginScreen .login-card{
+  max-width:560px !important;
+  border-radius:34px !important;
+  background:rgba(255,255,255,.94) !important;
+  box-shadow:0 32px 85px rgba(15,23,42,.15) !important;
+}
+#loginScreen h1,
+#loginScreen .brand-title,
+#loginScreen .app-title{
+  letter-spacing:-.06em !important;
+}
+#loginScreen h2{
+  letter-spacing:-.035em !important;
+}
+#loginScreen .system-version{
+  color:#64748b !important;
+  font-weight:800 !important;
+}
+.logo-box,.brand-icon,.app-logo{
+  background:linear-gradient(135deg,#2563eb,#22c55e) !important;
+  box-shadow:0 12px 24px rgba(37,99,235,.20) !important;
+}
+.commerce-brand img,.brand-logo-large,.est-card-logo{
+  background:#fff !important;
+  border:1px solid #e2e8f0 !important;
+  box-shadow:0 10px 22px rgba(15,23,42,.08) !important;
+}
+.cuadrao-v3-chart-card{
+  background:rgba(255,255,255,.92) !important;
+  border:1px solid #e2e8f0 !important;
+  border-radius:24px !important;
+  box-shadow:0 18px 45px rgba(15,23,42,.07) !important;
+}
+@media(max-width:700px){
+  .card,.panel,.modal,.commerce-banner,.admin-section,section .card{
+    border-radius:22px !important;
+  }
+  header,.topbar,.app-header{
+    border-radius:22px !important;
+  }
+}
+
+
+/* ===== Cuadrao v3.0.2 Strong Visual Upgrade ===== */
+:root{--primary:#155EEF;--primary2:#2563eb;--green:#16C784;--green2:#22c55e;--navy:#071326;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--cardGlass:rgba(255,255,255,.88);--shadowStrong:0 30px 80px rgba(15,23,42,.16);--shadowSoft:0 18px 45px rgba(15,23,42,.10)}
+body{background:radial-gradient(circle at 0% 0%,rgba(21,94,239,.30),transparent 27%),radial-gradient(circle at 95% 4%,rgba(22,199,132,.28),transparent 30%),radial-gradient(circle at 70% 95%,rgba(37,99,235,.12),transparent 35%),linear-gradient(135deg,#eaf2ff 0%,#f8fbff 42%,#eafff4 100%)!important;color:var(--ink)!important}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(21,94,239,.88) 0 5px,transparent 5px 100%),radial-gradient(circle at 6% 12%,rgba(255,255,255,.38),transparent 12%);opacity:.38;z-index:-1}
+.card,.panel,.modal,.commerce-banner,.admin-section,section .card{background:var(--cardGlass)!important;border:1px solid rgba(255,255,255,.78)!important;box-shadow:var(--shadowStrong)!important;border-radius:30px!important;backdrop-filter:blur(18px) saturate(1.2)}
+.card:hover,.panel:hover,section .card:hover{box-shadow:0 34px 90px rgba(15,23,42,.19)!important}
+header,.topbar,.app-header{background:rgba(255,255,255,.92)!important;border:1px solid rgba(255,255,255,.75)!important;border-radius:30px!important;box-shadow:0 24px 60px rgba(15,23,42,.12)!important;backdrop-filter:blur(18px)}
+.logo-box,.brand-icon,.app-logo{background:linear-gradient(145deg,#155EEF 0%,#0ea5e9 45%,#16C784 100%)!important;box-shadow:0 16px 32px rgba(21,94,239,.28)!important}
+button,.btn-primary,.btn-soft,.btn-secondary,.btn-danger{border-radius:16px!important;font-weight:950!important;letter-spacing:-.015em;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease!important}
+button:hover,.btn-primary:hover,.btn-soft:hover,.btn-secondary:hover{transform:translateY(-2px)!important;filter:saturate(1.08)}
+.btn-primary,.primary,button[onclick*="login"],button[onclick*="save"],button[onclick*="processBalance"],button[onclick*="createUnified"]{background:linear-gradient(135deg,#155EEF 0%,#2563eb 45%,#16C784 100%)!important;color:#fff!important;border:0!important;box-shadow:0 16px 34px rgba(21,94,239,.28)!important}
+.btn-soft,.btn-secondary,nav button,.tab{background:rgba(241,245,249,.92)!important;color:#0f172a!important;border:1px solid rgba(226,232,240,.95)!important;box-shadow:0 10px 24px rgba(15,23,42,.05)!important}
+nav button.active,.tab.active{background:linear-gradient(135deg,#155EEF,#16C784)!important;color:#fff!important;box-shadow:0 14px 30px rgba(21,94,239,.25)!important}
+.btn-danger{background:linear-gradient(135deg,#ef4444,#b91c1c)!important;color:#fff!important;border:0!important;box-shadow:0 14px 28px rgba(239,68,68,.20)!important}
+input,select,textarea{background:rgba(255,255,255,.96)!important;border:1px solid rgba(203,213,225,.95)!important;border-radius:17px!important;min-height:48px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 18px rgba(15,23,42,.03)!important}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(21,94,239,.16)!important;border-color:#60a5fa!important}
+.metric,.stat,.kpi{background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(248,250,252,.92))!important;border:1px solid rgba(226,232,240,.95)!important;border-radius:24px!important;box-shadow:0 18px 45px rgba(15,23,42,.08)!important}
+.alert,.notice{border-radius:22px!important;box-shadow:0 12px 30px rgba(15,23,42,.05)!important}
+.alert.ok{background:linear-gradient(135deg,rgba(236,253,245,.98),rgba(220,252,231,.92))!important;border:1px solid rgba(34,197,94,.55)!important;color:#065f46!important}
+.alert.warn{background:linear-gradient(135deg,rgba(255,247,237,.98),rgba(255,237,213,.92))!important;border:1px solid rgba(251,146,60,.50)!important;color:#9a3412!important}
+table{border-collapse:separate!important;border-spacing:0!important;border-radius:20px!important;overflow:hidden!important;border:1px solid rgba(226,232,240,.95)!important;box-shadow:0 14px 35px rgba(15,23,42,.05)!important}
+th{background:linear-gradient(180deg,#f8fafc,#eef2f7)!important;color:#475569!important;text-transform:uppercase;font-size:12px!important;letter-spacing:.06em}
+td,th{border-bottom:1px solid #e2e8f0!important;padding:14px 15px!important}
+tr:last-child td{border-bottom:0!important}
+#loginScreen{background:radial-gradient(circle at 15% 10%,rgba(21,94,239,.24),transparent 30%),radial-gradient(circle at 86% 10%,rgba(22,199,132,.22),transparent 30%),linear-gradient(135deg,#eaf2ff,#ffffff,#eafff4)!important}
+#loginScreen .card,#loginScreen .login-card{background:rgba(255,255,255,.95)!important;border:1px solid rgba(255,255,255,.84)!important;box-shadow:0 40px 105px rgba(15,23,42,.18)!important;border-radius:36px!important}
+#loginScreen h1,#loginScreen .brand-title,#loginScreen .app-title{letter-spacing:-.07em!important}
+.management-warning{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:12px 14px;border-radius:16px;margin:10px 0;font-weight:800}
+.unified-note{background:linear-gradient(135deg,rgba(21,94,239,.08),rgba(22,199,132,.10));border:1px solid rgba(21,94,239,.20);padding:12px 14px;border-radius:18px;color:#0f172a;font-weight:800}
+@media(max-width:700px){.card,.panel,.modal,.commerce-banner,.admin-section,section .card,header,.topbar,.app-header{border-radius:23px!important}}
+
 </style>
 </head>
 <body>
@@ -1897,7 +2100,7 @@ tr:last-child td{border-bottom:0!important}
 
       <button class="btn-primary full login-submit" onclick="login()">Acceder</button>
 
-      <div class="version-line single"><span>Cuadrao v3.0.0 Demo</span></div>
+      <div class="version-line single"><span>Cuadrao v3.0.2 Demo</span></div>
 
       
       <div class="restricted">
@@ -1912,8 +2115,8 @@ tr:last-child td{border-bottom:0!important}
       <p class="login-footnote">Esta página está protegida por derechos de autor.</p>
 
       <div class="system-version">
-        Cuadrao v3.0.0<br>
-        Build 2026.06.14.009
+        Cuadrao v3.0.2<br>
+        Build 2026.06.14.011
       </div>
 
 
@@ -2319,8 +2522,8 @@ tr:last-child td{border-bottom:0!important}
     <div class="card system-info-card">
       <h2>Información del Sistema</h2>
       <div class="grid4">
-        <div class="metric">Versión<br><b>v3.0.0</b></div>
-        <div class="metric">Build<br><b>2026.06.14.009</b></div>
+        <div class="metric">Versión<br><b>v3.0.2</b></div>
+        <div class="metric">Build<br><b>2026.06.14.011</b></div>
         <div class="metric">Base de datos<br><b>Supabase</b></div>
         <div class="metric">Estado<br><b id="cloudStatus">Verificando</b></div>
       </div>
@@ -3232,7 +3435,7 @@ function renderCloudStatus(){
 }
 
 
-/* ---- v3.0.0 establecimiento/logo robust UI ---- */
+/* ---- v3.0.2 establecimiento/logo robust UI ---- */
 async function loadAndRenderActiveEstablishment(){
   if(!cloudEnabled || !activeCommerceId){
     renderCommerceBranding();
@@ -3384,11 +3587,107 @@ function initV3VisualShell(){
     target.appendChild(div);
   }
   const ver=document.querySelector('#loginScreen .system-version');
-  if(ver)ver.innerHTML='Cuadrao v3.0.0<br>Build 2026.06.14.009';
+  if(ver)ver.innerHTML='Cuadrao v3.0.2<br>Build 2026.06.14.011';
+}
+
+
+/* ---- Cuadrao v3.0.2 Unified creation and real delete ---- */
+function getCommerceFormPayload(){
+  const name=(document.getElementById('commerceStoreName')?.value || document.getElementById('storeName')?.value || document.getElementById('estName')?.value || '').trim();
+  const username=(document.getElementById('commerceUsername')?.value || document.getElementById('userName')?.value || '').trim().toLowerCase();
+  const password=(document.getElementById('commercePassword')?.value || document.getElementById('userPassword')?.value || '').trim();
+  const adminPin=(document.getElementById('commerceAdminPin')?.value || document.getElementById('adminPin')?.value || '9999').trim();
+  const contactPerson=(document.getElementById('commerceContactPerson')?.value || '').trim();
+  const email=(document.getElementById('commerceEmail')?.value || '').trim();
+  const mobile=(document.getElementById('commerceMobile')?.value || '').trim();
+  return {name,username,password,adminPin,contactPerson,email,mobile,logoData:pendingCommerceLogoData||''};
+}
+async function createUnifiedCommerceUserEstablishment(){
+  const p=getCommerceFormPayload();
+  if(!p.name || !p.username || !p.password){alert('Completa nombre del comercio, usuario y contraseña.');return;}
+  const d=db();
+  const licenseCode=(typeof generateLicenseCode15==='function') ? generateLicenseCode15() : Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,15).padEnd(15,'0');
+  const localUser={id:uid(),storeName:p.name,username:p.username,password:p.password,adminPin:p.adminPin,licenseCode,contactPerson:p.contactPerson,email:p.email,mobile:p.mobile,logoData:p.logoData,active:true};
+  d.commerceUsers=d.commerceUsers||[];
+  d.commerceUsers.unshift(localUser);
+  saveDB(d);
+  const cloudResult=await cloudCreateCommerceUser(localUser);
+  if(!cloudResult){alert('Se guardó localmente, pero no llegó a Supabase. Revisa conexión o permisos.');return;}
+  if(typeof renderCommerceManagementFromCloud==='function') await renderCommerceManagementFromCloud();
+  if(typeof renderCloudEstablishments==='function') await renderCloudEstablishments();
+  ['commerceStoreName','commerceUsername','commercePassword','commerceAdminPin','commerceContactPerson','commerceEmail','commerceMobile','commerceLicenseCode'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  if(document.getElementById('commerceLogoFile')) commerceLogoFile.value='';
+  if(document.getElementById('commerceLogoPreview')) commerceLogoPreview.classList.add('hidden');
+  pendingCommerceLogoData='';
+  alert('Comercio, establecimiento, usuario y licencia creados correctamente.');
+}
+async function realDeleteCommerceUser(id){
+  if(!confirm('Borrado real: ¿seguro que deseas eliminar este usuario de Supabase?'))return;
+  if(!confirm('Confirmación final. Esta acción no se puede deshacer.'))return;
+  if(cloudEnabled && isUUID(id)){
+    const {error}=await cloudClient.from('usuarios_comercio').delete().eq('id',id);
+    if(error){alert('No se pudo borrar el usuario: '+error.message);return;}
+  }
+  const d=db();d.commerceUsers=(d.commerceUsers||[]).filter(x=>x.id!==id&&x.cloudId!==id);saveDB(d);
+  await renderCommerceManagementFromCloud();alert('Usuario borrado permanentemente.');
+}
+async function realDeleteEstablishment(id){
+  if(!confirm('Borrado real: ¿seguro que deseas eliminar este establecimiento?'))return;
+  if(!confirm('Confirmación final. Esta acción no se puede deshacer.'))return;
+  if(cloudEnabled && isUUID(id)){
+    const {error}=await cloudClient.from('establecimientos').delete().eq('id',id);
+    if(error){alert('No se pudo borrar el establecimiento: '+error.message);return;}
+  }
+  await renderCloudEstablishments();alert('Establecimiento borrado permanentemente.');
+}
+async function realDeleteCommerce(id){
+  if(!confirm('Borrado real: esto eliminará usuarios y establecimientos relacionados. ¿Continuar?'))return;
+  if(!confirm('Confirmación final. Esta acción no se puede deshacer.'))return;
+  if(cloudEnabled && isUUID(id)){
+    await cloudClient.from('usuarios_comercio').delete().eq('comercio_id',id);
+    await cloudClient.from('establecimientos').delete().eq('comercio_id',id);
+    await cloudClient.from('licencias').delete().eq('comercio_id',id);
+    const {error}=await cloudClient.from('comercios').delete().eq('id',id);
+    if(error){alert('No se pudo borrar el comercio: '+error.message);return;}
+  }
+  const d=db();d.commerceUsers=(d.commerceUsers||[]).filter(x=>x.commerceId!==id);saveDB(d);
+  if(typeof renderCommerceManagementFromCloud==='function') await renderCommerceManagementFromCloud();
+  if(typeof renderCloudEstablishments==='function') await renderCloudEstablishments();
+  alert('Comercio borrado permanentemente.');
+}
+async function renderCommerceManagementFromCloud(){
+  const box=document.getElementById('commerceUsersList');
+  if(!box || !cloudEnabled) return;
+  const {data,error}=await cloudClient.from('usuarios_comercio').select('*, comercios(id,nombre,licencia_codigo,activo,email,telefono_movil,persona_contacto,logo_url)').order('creado',{ascending:false});
+  if(error){console.warn(error);return;}
+  box.innerHTML='<div class="management-warning">Borrado real activado: si eliminas aquí, se elimina de Supabase y no debe reaparecer.</div>'+((data||[]).length?`<table><thead><tr><th>Comercio</th><th>Usuario</th><th>Contacto</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>${data.map(u=>`<tr><td>${u.comercios?.logo_url?`<img class="est-card-logo" src="${u.comercios.logo_url}" alt="Logo">`:''}<b>${u.comercios?.nombre||''}</b><br><span class="small">${u.comercios?.licencia_codigo||''}</span></td><td>${u.usuario||''}</td><td>${u.email||u.comercios?.email||''}<br><span class="small">${u.telefono_movil||u.comercios?.telefono_movil||''}</span></td><td>${u.activo?'<span class="status-done">Activo</span>':'<span class="status-open">Inactivo</span>'}</td><td><div class="est-management-actions"><button class="btn-soft" onclick="deactivateCommerceUser('${u.id}')">Desactivar usuario</button><button class="btn-danger" onclick="realDeleteCommerceUser('${u.id}')">Borrar usuario</button><button class="btn-danger" onclick="realDeleteCommerce('${u.comercio_id}')">Borrar comercio</button></div></td></tr>`).join('')}</tbody></table>`:'<p class="note">No hay usuarios registrados.</p>');
+}
+async function renderCloudEstablishments(){
+  const box=document.getElementById('cloudEstablishmentsList') || document.getElementById('establishmentsList');
+  if(!box)return;
+  if(!cloudEnabled){box.innerHTML='<p class="note">Supabase no está conectado.</p>';return;}
+  const {data,error}=await cloudClient.from('establecimientos').select('*, comercios(nombre, licencia_codigo)').order('creado',{ascending:false});
+  if(error){box.innerHTML='<div class="alert warn">No se pudieron cargar establecimientos desde Supabase.</div>';console.warn(error);return;}
+  box.innerHTML='<div class="management-warning">Estos datos vienen de Supabase. El botón borrar elimina el establecimiento realmente.</div>'+((data||[]).length?`<table><thead><tr><th>Logo</th><th>Establecimiento</th><th>Contacto</th><th>Comercio</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>${data.map(e=>`<tr><td>${e.logo_url?`<img class="est-card-logo" src="${e.logo_url}" alt="Logo">`:''}</td><td><b>${e.nombre||''}</b><br><span class="small">${e.correo||''}</span></td><td>${e.persona_contacto||''}<br><span class="small">${e.telefono_movil||''}</span></td><td>${e.comercios?.nombre||''}<br><span class="small">${e.comercios?.licencia_codigo||''}</span></td><td>${e.activo?'<span class="status-done">Activo</span>':'<span class="status-open">Inactivo</span>'}</td><td><div class="est-management-actions"><button class="btn-soft" onclick="deactivateEstablishmentById('${e.id}')">Desactivar</button><button class="btn-soft" onclick="reactivateEstablishmentById('${e.id}')">Activar</button><button class="btn-danger" onclick="realDeleteEstablishment('${e.id}')">Borrar</button></div></td></tr>`).join('')}</tbody></table>`:'<p class="note">No hay establecimientos registrados.</p>');
+}
+function enhanceUnifiedCommerceUI(){
+  const buttons=[...document.querySelectorAll('button')];
+  const btn=buttons.find(b=>/guardar usuario|crear usuario|guardar comercio|guardar establecimiento/i.test(b.textContent||''));
+  if(btn && !btn.dataset.unifiedV302){
+    btn.textContent='Crear comercio, establecimiento, usuario y licencia';
+    btn.classList.add('btn-primary');
+    btn.setAttribute('onclick','createUnifiedCommerceUserEstablishment()');
+    btn.dataset.unifiedV302='1';
+    const note=document.createElement('div');
+    note.className='unified-note';
+    note.textContent='Un solo paso: crea comercio, establecimiento, usuario y licencia automática de 15 caracteres.';
+    btn.parentElement?.insertBefore(note,btn);
+  }
 }
 
 function renderAll(){
-  const list=['renderClients','renderUserReports','renderTickets','renderAdmin','renderStores','renderFiles','renderVisitCalendar','renderCategoryFilters','populateAdminSelects','renderStorePrices','renderConversions','renderLicenses','renderAudit','renderSettings','renderSystemStatus','renderCommerceMode','renderCommerceAdminPanel','renderCommerceUsers','renderCloudStatus','renderLicenseBanner','renderAdminAlertCount','renderCustomConversions','renderCloudEstablishments','renderCommerceManagementFromCloud','renderCommerceBranding','initV3VisualShell'];
+  setTimeout(enhanceUnifiedCommerceUI,100);
+  const list=['renderClients','renderUserReports','renderTickets','renderAdmin','renderStores','renderFiles','renderVisitCalendar','renderCategoryFilters','populateAdminSelects','renderStorePrices','renderConversions','renderLicenses','renderAudit','renderSettings','renderSystemStatus','renderCommerceMode','renderCommerceAdminPanel','renderCommerceUsers','renderCloudStatus','renderLicenseBanner','renderAdminAlertCount','renderCustomConversions','renderCloudEstablishments','renderCommerceManagementFromCloud','renderCommerceBranding','initV3VisualShell','enhanceUnifiedCommerceUI'];
   list.forEach(fn=>safeCall(fn));
   try{ if(typeof renderCatalog==='function'){renderCatalog('admin');renderCatalog('user');} }catch(e){console.warn('Error en renderCatalog',e);}
 }
